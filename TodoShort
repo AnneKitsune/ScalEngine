@@ -1,0 +1,11 @@
+Message between actors
+Event recording
+State step by step simulation by feeding events
+
+actor latency testing (send msg to self, check delay average)
+
+Need to split better the relationship between IO and Logic so we can choose what to run when
+
+
+
+Finish done processing being retarded

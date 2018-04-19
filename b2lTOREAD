@@ -1,0 +1,37 @@
+change modules to akka actors.
+make then run in their own thread.
+make the main loop read his buffer just before updating the render.
+
+(continuous async update of the whole game while keeping the rendering stable and "stateless", because we'll pass copy of world to renderer)
+
+
+idea
+when getting hit in the head, make the corpse fly a bit backward + add video effects etcetcetc -> encourage film makers to make higher quality -> exposure ++ :)
+
+
+
+security of mods: http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+remove all the perms of the mods, only keep rights to receive events and send new events (@safe annotation mods only OR --->
+
+For our sandbox, this means that if untrusted plugin code calls trusted code to make it do something sinister on its behalf, the permission will be denied because untrusted plugin code is on the call stack.
+see if the call stack is respected when using Actor ! Message
+However, the plugin can also set the fileName property, and can therefore trick the application into overwriting arbitrary files the next time the application saves the document.
+-full immutability in all events is needed
+
+Be aware, that untrusted code may also use reflection to inspect or modify data. The relevant permissions controlling this are: RuntimePermission("accessDeclaredMembers"), which allows access to declared members of a class using reflection, and ReflectPermission("suppressAccessChecks") which allows bypassing the access checks for reflective access to members with private, protected or default access.
+)
+give perms readwrite to current folder only
+give access to GraphicCard (opengl needed)
+specify a security manager for mods and one for the rest of the application
+
+do not make the generic event ModifyVariable since it would allow full access to mutable data, and is a gate to bypass the security manager
+
+
+
+game avec wipe: l'event est causé par un événement réussi par les joueurs (genre de prestige, qui wipe le serv quand quelqu'un le réussi)
+https://cdn.discordapp.com/attachments/246810826038706176/255008095674040320/YWoyvkn.png
+
+
+random names generated from a dictionnary with all words in it classed by adjective, nouns, etc...
+game could get viral because of the weird names it would produce, for example, one of the worst case would be: "Sexual blade of pussy monster"
+xD

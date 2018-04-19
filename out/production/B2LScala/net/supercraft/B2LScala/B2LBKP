@@ -1,0 +1,197 @@
+
+
+
+/*object B2L {
+		val GAMETITLE = "B2L V0.2.0A"
+
+		def main(args: Array[String]): Unit = {
+				/*java.awt.EventQueue.invokeLater(new Runnable() {
+						def run() {
+								val game = create().start()
+						}
+				});*/
+				create().start() match{
+						case Right(g:Game) => runGame(g)
+						case Left(_)=>println("Can't launch game")
+				}
+		}
+		def create()={
+				GameUninitialized()
+		}
+		var lastTime:Long = 0
+		@tailrec def runGame(game:Game):Game={
+				//Thread.sleep(20)
+				//runGame(game.applyEvents(game.uncommittedEvents).markCommitted)
+				runGame(game.update(20))
+		}
+}
+*/
+
+
+/*sealed trait Game extends AggregateRoot[Game,Event]{
+		def isFinished=this match{
+				case fg:GameDone => true
+				case _ => false
+		}
+		def isRunning=this match{
+				case rg:GameRunning => true
+				case _ => false
+		}
+		def update(tpf:Float):Game
+}*/
+
+//preload assets,init conf,setup env,etc...
+/*case class GameUninitialized(override val uncommittedEvents: List[Event] = Nil) extends Game{
+		def id:String="idtmp"
+		def start():Either[GameViolation,Game]={
+				println("loading conf")
+				println("sending menu started event to be ran")
+				if("ss"=="ssss"){
+						Left(AssetsNotLoadedViolation)
+				}else{
+						Right(applyEvents(MenuStarted(this.getClass)))
+				}
+		}
+		override def update(tpf:Float):Game={
+				//val y = applyEvents(uncommittedEvents:::x._2)
+
+				return applyEvents(uncommittedEvents)
+		}
+		override def applyEvent={
+				case ev @ MenuStarted() =>
+						//val keybinds=Map(Keyboard.KEY_W->List(ForwardEvent).asInstanceOf[List[Event]],Keyboard.KEY_A->List(LeftEvent).asInstanceOf[List[Event]])
+						GameMenu(new Config(keybinds), new Window().createDisplay(B2L.GAMETITLE,new Dimension(800,600)),new Listener(new ImmutableKeyboard()).createKeyboard(),List(ev))
+		}
+		override def markCommitted = copy(uncommittedEvents = Nil)
+}
+case class GameMenu(conf:Config,window:Window,keyListener:Listener,override val uncommittedEvents: List[Event] = Nil) extends Game{
+		def id:String="idtmp"
+		override def applyEvent={
+				case ev:MenuStarted => println("menu started"); this
+		}
+		override def update(tpf:Float):Game={
+				val x1=conf.update(tpf)
+				val x2=keyListener.update(tpf,conf)
+				val x3=window.update(tpf)
+				Display.update()
+
+
+				//Guns must use val lastShoot
+
+
+				return copy(conf=x1._1,keyListener=x2._1,window=x3._1,uncommittedEvents=x1._2:::x2._2:::x3._2)
+		}
+		override def markCommitted = copy(uncommittedEvents = Nil)
+}
+case class GameRunning(conf:Config,keyListener:Listener,window:Window,world:World,override val uncommittedEvents: List[Event] = Nil) extends Game{
+		def id:String="idtmp"
+		override def update(tpf:Float):Game={
+				val x1=conf.update(tpf)
+				val x2=keyListener.update(tpf,conf)
+				val x3=window.update(tpf)
+				val x4 = world.update(tpf,uncommittedEvents)
+
+				return copy(conf=x1._1,keyListener=x2._1,window=x3._1,world=x4._1,uncommittedEvents=x1._2:::x2._2:::x3._2:::x4._2)
+		}
+		override def applyEvent={
+				case ev:MenuStarted => println("menu started"); this
+		}
+		override def markCommitted = copy(uncommittedEvents = Nil)
+}
+case class GameDone(override val uncommittedEvents: List[Event] = Nil) extends Game{
+		def id:String="idtmp"
+		override def update(tpf:Float):Game={
+				//val y = applyEvents(uncommittedEvents:::x._2)
+
+				return copy()
+		}
+		override def applyEvent={
+				case ev:MenuStarted => println("menu started"); this
+		}
+		override def markCommitted = copy(uncommittedEvents = Nil)
+}*/
+
+
+
+
+
+/*class B2L extends SimpleApplication with ActionListener {
+		val world = new World
+		val win = new Window(B2L.GAMETITLE, new PointXY(800, 600), this)
+		startCanvas(false)
+
+		override def simpleInitApp(): Unit = {
+				val bulletAppState = new BulletAppState();
+				bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
+				stateManager.attach(bulletAppState);
+
+				rootNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+				flyCam.setDragToRotate(true);
+				getCamera().setFrustumPerspective(45f, getCamera().getWidth().asInstanceOf[Float] / getCamera().getHeight().asInstanceOf[Float], 0.1f, 1000f);
+
+				//win.changeMenu(new MenuInGame(getContext.asInstanceOf[JmeCanvasContext],this))
+
+
+				world.entities += new Player("Main Player", 0, assetManager)
+				world.entities.foreach(x => rootNode.attachChild(x.model))
+
+
+				println("load done")
+		}
+
+		//cl->sv cmd (run sv)
+		//run cl cmd, send cmd/state
+
+		//sv->cl cmd+state (run cl)
+		//update cl from sv data(buffer), run async(buffer)/, send async cmd (rot,shoot,etc..)
+		def updateClient(playerId: Int, world: World, server: MultiPlayerServer) {
+				// apply state updates from server
+				for ((id, events) <- server.entityEvents.groupBy(_.entityId)) {
+						val entity = world.entityFor(id)
+						entity match{
+								case Some(e)=>events.foreach(_.applyTo(e))
+								case None=>println("Entity does not exists!")
+						}
+				}
+
+				//Run
+				// locally simulate our player entity
+				val playerEntity = world.getEntity(playerId)
+				val replyEvents = server.playerEvents.flatMap { ev =>
+						ev.applyTo(playerEntity)
+				}
+
+				val (externalEvents, stateTransitions) = updateEntity(playerEntity, world)
+
+				for (t <- stateTransitions) {
+						t.applyTo(entity) // mutation
+				}
+
+				server.sendEvents(stateTransitions, externalEvents ++ replyEvents)
+				// all events must go to the server
+		}
+		//What I want?
+		//keypress->event (id=self)->apply->event(side effect, ex:networksend)->apply->side effect->apply->side effect->...
+		//shoot->event (id=self)->apply animation->side effect: network send->(sv)apply->side effect->damage sv->side effect->damage cl
+		//while velocity>0->event(id=self)->apply move
+
+
+		//async event  ->                   updateAll->events.applyTo(id)
+		//entity update->seq event->updateAll->events.applyTo(id)
+
+		//apply current async event and side effects of last tick+generate new side effects from entity update
+		def updateEntities(entity: Entity, world: World, tpf: Float, events: Seq[Event]): (Seq[Event]) = {
+				events.foreach(_.applyTo(entity))
+				entity.update(tpf)
+		}
+
+		override def simpleRender(rm: RenderManager) {
+
+		}
+
+		def getSettings(): AppSettings = settings
+
+		override def onAction(name: String, isPressed: Boolean, tpf: Float): Unit = {
+				println("key pressed")
+		}
+}*/

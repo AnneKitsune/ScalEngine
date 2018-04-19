@@ -1,0 +1,44 @@
+GameObject CameraGO
+-Transform (pos,rot)
+-Camera (graphical stuff)
+
+Systems...
+Graphic
+-Query components->draw
+-update Keys/Mouse
+
+Keys/Mouse
+-Update physics
+
+Physics
+-OnUpdate
+--Update camera
+
+
+PlayerRoot
+-Transform
+-Camera (needs custom transform)
+-Mesh
+-Mesh (Gun)
+-Mesh Animation
+-Mesh Gun Animation
+
+Transformation offsets?
+
+
+PlayerRoot
+-Transform
+-Camera (go)
+--Transform
+--FPSCamera
+-Gun (go)
+--Mesh
+--Animation
+
+
+PlayerRoot
+-Transform
+
+CameraRoot
+-Transform
+-Transform Constraint (ref playerroot transform)

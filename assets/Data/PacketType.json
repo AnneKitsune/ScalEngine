@@ -1,0 +1,23 @@
+{
+"TimeSet":{"clRunnable":true, "svRunnable":false,"isOp":false},
+"Position":{"clRunnable":true, "svRunnable":false,"isOp":false},
+"Rotation":{"clRunnable":true, "svRunnable":false,"isOp":false},
+"layerState":{"clRunnable":true, "svRunnable":false,"isOp":false},
+"Health":{"clRunnable":true, "svRunnable":false,"isOp":true },
+"Gun":{"clRunnable":true, "svRunnable":false,"isOp":false},
+"Connected":{"clRunnable":true, "svRunnable":false,"isOp":true },
+"Forward":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Backward":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Left":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Right":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Jump":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"GunSet":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"GunDrop":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Kill":{"clRunnable":true, "svRunnable":true, "isOp":true },
+"Kick":{"clRunnable":true, "svRunnable":true, "isOp":true },
+"Rotate":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Connect":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"Disconnect":{"clRunnable":false,"svRunnable":true, "isOp":false},
+"LevelSet":{"clRunnable":true, "svRunnable":true, "isOp":true },
+"ScoreSet":{"clRunnable":true, "svRunnable":true, "isOp":true }
+}

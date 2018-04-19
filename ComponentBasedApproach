@@ -1,0 +1,69 @@
+Game object based approach
+
+-GameObject(hold components and data, that's it)
+--Components(Immutable dataholder)
+
+Modules get those immutable gameobject
+if they find what they need to use, they send an update message to the main gameobject storage module
+
+
+Physics
+
+in gameobject
+find component
+if found collider
+	cache or update cache
+if found rigidbody
+	move->Message to storage module
+
+OnFindCollisions
+	Use cached colliders
+
++Only 1 transform per object
++scalable
++Code both in systems and in components
+
+-Async component modification priority (if 2 things change the same thing, like the physic engine and a mod)
+-perf (because of modules having to access the component array to know if they have a job to do on this gameobject)
+
+
+Physic
+<-Physic update
+->Move (GameObject update component transform)
+Mod
+<-Move
+->Move (position override, will be ran after the other one normally)
+
+GameManager
+->Update Physic
+<-Move (physic)
+<-Move (mod)
+
+
+Do not use parenting
+Do not make script integration
+Make it possible do create Actors!
+
+Obj1
+-Component1
+Obj2
+-Component2
+-Component1
+
+System
+->Modify Component1
+World
+<-Modify Component1
+  foreach obj w/ component1, copy using new component replacing the old one
+  (in code) obj.map(o=>o.comp.filterout(oldcomponent identified by id/type/???) :+ newcomponent) (but without list 2x copy cause of filter and :+)
+
+
+Classic component-system
+GameObject
+-Renderable
+-Animation
+
+Animation System modifies Renderable data using animation
+Renderer System uses modified information
+
+

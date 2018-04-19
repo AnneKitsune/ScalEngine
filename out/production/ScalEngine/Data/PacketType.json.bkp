@@ -1,0 +1,23 @@
+{
+"1":{"className":"TimeSet",      "clRunnable":true, "svRunnable":false,"isOp":false,"cmd":false},
+"2":{"className":"Position",     "clRunnable":true, "svRunnable":false,"isOp":false,"cmd":false},
+"3":{"className":"Rotation",     "clRunnable":true, "svRunnable":false,"isOp":false,"cmd":false},
+"4":{"className":"PlayerState",  "clRunnable":true, "svRunnable":false,"isOp":false,"cmd":false},
+"5":{"className":"Health",       "clRunnable":true, "svRunnable":false,"isOp":true, "cmd":false},
+"6":{"className":"Gun",          "clRunnable":true, "svRunnable":false,"isOp":false,"cmd":false},
+"7":{"className":"Connected",    "clRunnable":true, "svRunnable":false,"isOp":true, "cmd":true },
+"8":{"className":"Forward",      "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"9":{"className":"Backward",     "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"10":{"className":"Left",        "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"11":{"className":"Right",       "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"12":{"className":"Jump",        "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"13":{"className":"GunSet",      "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"14":{"className":"GunDrop",     "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"15":{"className":"Kill",        "clRunnable":true, "svRunnable":true, "isOp":true, "cmd":true },
+"16":{"className":"Kick",        "clRunnable":true, "svRunnable":true, "isOp":true, "cmd":true },
+"17":{"className":"Rotate",      "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"18":{"className":"Connect",     "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"19":{"className":"Disconnect",  "clRunnable":false,"svRunnable":true, "isOp":false,"cmd":true },
+"20":{"className":"LevelSet",    "clRunnable":true, "svRunnable":true, "isOp":true, "cmd":true },
+"21":{"className":"ScoreSet",    "clRunnable":true, "svRunnable":true, "isOp":true, "cmd":true }
+}

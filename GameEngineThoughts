@@ -1,0 +1,91 @@
+Init
+Init Hooks
+
+Unload Hooks
+Unload
+
+
+
+AI example
+Goal: 
+-Tell the physic engine to move an object towards a location
+-Tell the ennemy to shoot   ai.attack(gameobject)->get gameobject animations, states-> modify state to attack
+                                                                                       physics ! gotowards/impulse/etc..(gameobject,target)
+-Animate the object
+
+Needs physic world
+Needs behiavour
+Needs raycasts / physics calculations
+Modifies object transform
+
+
+1)
+AI             Physics          Global List        Animation    Display
+-------------------------------->state=attack
+-------------->go towards
+                                                      <----------Get Animated Mesh
+                                    <----------------get objects
+                                                      ---------->Show mesh
+
+
+
+
+
+1) Split components related to each system to store it in the system
+2) Use a global state and modify it (not multithread anymore)
+3) Use observer pattern
+
+
+
+
+
+1) Get multithreaded, uses most recent data available.
+   Get/Write serial
+   Get can get delayed by a write operation (ex: Physics)
+
+
+
+
+Main goals:
+Direct dependency on absolute time  t=1  t=2  draw t=40 using t=2 physic state calculated
+
+
+
+Flow:
+Physics                  Graphics
+<------------------------Get transform @ t=u
+------------------------>Map[id->transform]
+
+
+Physics               AI
+-------------------->Calculate behiavour of objects using t=2 states @ t=u
+<--------------------Actions (move,despawn,etc..)
+
+
+Graphics----->Physics----->AI  Serial
+
+
+
+
+state + event -> state
+-Implies 1 actor(looping) calling other actors requesting calculations
+or
+state + event -> action + state
+-action is side effect
+-Implies multiple asynch loop modifying shared data
+
+
+
+
+Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw->Draw
+
+Replay example
+a)set state as initial, keep all states
+--Loop register states at fixed intervals
+--Replays by settings the state it got at t=
+--Can use only 2 modules: Graphics and state(because it contains the mesh)
+b)set state as initial, execute events
+--Save initial state
+--Collect events
+--Execute event (processing overhead)
+--No randomization possible

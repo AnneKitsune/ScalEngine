@@ -1,0 +1,31 @@
+Without HUD maybe! You have to check your weapon to know how much ammo you got
+
+
+
+we need to find a way to be able to pass dynamically the variables/functions to the actors (to allow easy modding by just calling Game.broadcast(new ChangeXVariable(new value/func)))
+
+challenge: draw hyperbolic plane automatically using the formula
+
+────────▌▒▒▀▄───────▄▀▒▒▒▐
+───────▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐
+─────▄▄▀▒▒▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐
+───▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀██▀▒▌
+──▐▒▒▒▄▄▄▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄▒▒▌ 
+──▌▒▒▐▄█▀▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐
+─▐▒▒▒▒▒▒▒▒▒▒▒▌██▀▒▒▒▒▒▒▒▒▀▄▌ 
+─▌▒▀▄██▄▒▒▒▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
+─▌▀▐▄█▄█▌▄▒▀▒▒▒▒▒▒░░░░░░▒▒▒▐
+▐▒▀▐▀▐▀▒▒▄▄▒▄▒▒▒▒▒░░░░░░▒▒▒▒▌
+▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒░░░░░░▒▒▒▐
+─▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒▒▒░░░░▒▒▒▒▌
+─▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▐
+──▀▄▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▄▒▒▒▒▌
+────▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀
+───▐▀▒▀▄▄▄▄▄▄▀▀▀﻿
+
+
+
+
+
+CSGO Dual
+skin vs skin $=% of win + 1/40 both die and lose

@@ -1,0 +1,28 @@
+import akka.dispatch.ExecutionContext
+import javafx.application.Platform
+import java.util.concurrent.Executor
+
+//
+object JavaFXExecutionContext {
+  implicit val javaFxExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(new Executor {
+  def execute(command: Runnable): Unit = Platform.runLater(command)
+  })
+}
+
+
+
+//use
+
+// import the default ec
+import scala.concurrent.ExecutionContext.Implicits.global
+// define the JavaFX ec so we can use it explicitly
+val fxec = JavaFXExecutionContext.javaFxExecutionContext
+future {
+  // some asynchronous computation, running on the default
+  // ForkJoin ExecutionContext because no ec is passed
+  // explicitly
+}.map(result => {
+  // update JavaFX components from result
+  // This will run in the JavaFX thread.
+  // Check Platform.isFxApplicationThread() to be sure!
+})(fxec)

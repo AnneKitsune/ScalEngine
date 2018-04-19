@@ -1,0 +1,33 @@
+Actor States
+-PreInit
+-Init
+-PostInit
+-Running
+-Shutdown
+
+OnMessageReceive in any state
+
+receive
+->pass to hook (spider pattern or other)
+->pass to body
+
+OnSend
+->pass to hook
+->send to dest
+
+OnActorPostInit
+
+Send to child PreInit
+OnAllPreInitDone
+Send to child Init
+OnAllInitDone
+Send to child PostInit----->recursion start in child, making subchilds init
+OnAllPostInitDone (all levels under this one are done init and ready to use)
+
+
+OnShutdown
+Send to child Shutdown
+OnAllShutdownDone
+Shutdown self
+
+
